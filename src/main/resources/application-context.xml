@@ -1,0 +1,67 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<bean id="dataSourceObj" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/ebay_db"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="Sujata4321"></property>
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceObj" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.prats123.entities.CustomerEntity</value>
+				<value>com.prats123.entities.CustomerLoginEntity</value>
+				<value>com.prats123.entities.ProductEntity</value>
+				<value>com.prats123.entities.CategoryEntity</value>
+				<value>com.prats123.entities.EmployeeEntity</value>
+				<value>com.prats123.entities.ProjectEntity</value>
+				
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+				<prop key="hibernate.show_sql">false</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="customerRepository" class="com.prats123.repositories.CustomerRepository">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<bean id="customerLoginRepository" class="com.prats123.repositories.CustomerLoginRepository">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	
+	
+	<bean id="productRepository" class="com.prats123.repositories.ProductRepository">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	
+	
+	<bean id="categoryRepository" class="com.prats123.repositories.CategoryRepository">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="employeeRepository" class="com.prats123.repositories.EmployeeRepository">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="projectRepository" class="com.prats123.repositories.ProjectRepository">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	
+</beans>
